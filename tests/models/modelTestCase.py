@@ -5,6 +5,13 @@ from pyastodon.models import *
 
 class ModelTestCase(unittest.TestCase):
 
+    def assertApplicationEqual(self, a1: Application, a2: Application) -> None:
+        self.assertEqual(a1.name, a2.name)
+        self.assertEqual(a1.website, a2.website)
+        self.assertEqual(a1.client_id, a2.client_id)
+        self.assertEqual(a1.client_secret, a2.client_secret)
+        self.assertEqual(a1.vapid_key, a2.vapid_key)
+
     def assertScopeEqual(self, s1: Scope, s2: Scope) -> None:
         self.assertEqual(s1, s2)
 

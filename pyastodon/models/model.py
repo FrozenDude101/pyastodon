@@ -47,7 +47,7 @@ class JSONModel(Model):
 
             isUnion = origin is typing.Union
             isOptional = isUnion and None.__class__ in typing.get_args(type_)
-            if name not in jsonData and isOptional:
+            if isOptional and (name not in jsonData or jsonData[name] is None):
                 kwargs[name] = None
                 continue
             if name not in jsonData:
@@ -68,7 +68,7 @@ class JSONModel(Model):
                     kwargs[name] = t.deserialize(value)
                 elif issubclass(t, JSONModel):
                     kwargs[name] = t.deserialize(json.dumps(value))
-                    
+
                 else:
                     try:
                         kwargs[name] = t(value)
