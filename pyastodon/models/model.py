@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Literal, Self, Optional, Union
+from typing import Literal, Self, Union, Any
 import typing
 
 import dataclasses
@@ -50,29 +50,41 @@ class JSONModel(Model):
             if isOptional and (name not in jsonData or jsonData[name] is None):
                 kwargs[name] = None
                 continue
+
             if name not in jsonData:
                 raise KeyError(f"Missing key {name} for {cls} to deserialize.")
             value = jsonData[name]
 
-            types = typing.get_args(type_) if isUnion else (type_,)
-
-            for t in types:
-                origin = typing.get_origin(t)
-
-                if origin is typing.Literal:
-                    for literal in typing.get_args(type_):
-                        if literal == value:
-                            kwargs[name] = literal
-
-                elif issubclass(t, StringModel):
-                    kwargs[name] = t.deserialize(value)
-                elif issubclass(t, JSONModel):
-                    kwargs[name] = t.deserialize(json.dumps(value))
-
-                else:
-                    try:
-                        kwargs[name] = t(value)
-                    except Exception:
-                        continue
+            parsed = cls._parseValueToType(type_, value)
+            kwargs[name] = parsed
 
         return cls(**kwargs)
+    
+    @classmethod
+    def _parseValueToType(cls, type_: type, value: Any) -> Any:
+        origin = typing.get_origin(type_)
+
+        if origin is None:
+            if issubclass(type_, StringModel):
+                return type_.deserialize(value)
+            if issubclass(type_, JSONModel):
+                return type_.deserialize(json.dumps(value))
+            return type_(value)
+
+        args = typing.get_args(type_)
+        if origin is list:
+            return list(map(lambda v: cls._parseValueToType(
+                args[0], v
+            ), value))
+        
+        if origin is Union:
+            for a in args:
+                try: return cls._parseValueToType(a, value)
+                except Exception: pass
+
+        if origin is Literal:
+            for a in args:
+                if value == a:
+                    return a
+                
+        raise TypeError(f"Unsupported type '{type_}'.")
