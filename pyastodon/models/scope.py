@@ -1,10 +1,13 @@
 from __future__ import annotations
+from typing import Self
 
 import enum
 
+from pyastodon.models.model import StringModel
+
 
 @enum.verify(enum.UNIQUE)
-class Scope(enum.Flag):
+class Scope(StringModel, enum.Flag):
 
     NONE = 0
 
@@ -78,15 +81,15 @@ class Scope(enum.Flag):
         | ADMIN_WRITE_EMAIL_DOMAIN_BLOCKS | ADMIN_WRITE_CANONICAL_EMAIL_BLOCKS
     )
 
-    @staticmethod
-    def fromString(string: str) -> Scope:
+    @classmethod
+    def fromString(cls, string: str) -> Scope:
         if string == "":
-            return Scope.READ
+            return cls.READ
         
-        scope = Scope.NONE
+        scope = cls.NONE
         for s in string.split(" "):
             s = s.upper().replace(":", "_", 2)
-            scope |= Scope.__members__[s]
+            scope |= cls.__members__[s]
 
         return scope
 

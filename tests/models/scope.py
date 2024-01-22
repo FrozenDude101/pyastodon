@@ -8,28 +8,28 @@ class TestScopeModel(ModelTestCase):
         INPUT = ""
         EXPECTED_RESULT = Scope.READ
 
-        result = Scope.fromString(INPUT)
+        result = Scope.deserialize(INPUT)
         self.assertScopeEqual(result, EXPECTED_RESULT)
 
     def testSingleString(self) -> None:
         INPUT = "read:accounts"
         EXPECTED_RESULT = Scope.READ_ACCOUNTS
 
-        result = Scope.fromString(INPUT)
+        result = Scope.deserialize(INPUT)
         self.assertScopeEqual(result, EXPECTED_RESULT)
 
     def testReadString(self) -> None:
         INPUT = "read"
         EXPECTED_RESULT = Scope.READ
 
-        result = Scope.fromString(INPUT)
+        result = Scope.deserialize(INPUT)
         self.assertScopeEqual(result, EXPECTED_RESULT)
 
     def testCompositeString(self) -> None:
         INPUT = "read write"
         EXPECTED_RESULT = Scope.READ | Scope.WRITE
 
-        result = Scope.fromString(INPUT)
+        result = Scope.deserialize(INPUT)
         self.assertScopeEqual(result, EXPECTED_RESULT)
 
     def testEmptyScope(self) -> None:
@@ -60,5 +60,5 @@ class TestScopeModel(ModelTestCase):
             " write:mutes"
         )
 
-        result = str(Scope.fromString(INPUT))
+        result = str(Scope.deserialize(INPUT))
         self.assertEqual(result, EXPECTED_RESULT)
