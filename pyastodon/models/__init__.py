@@ -1,0 +1,1 @@
+from pyastodon.models.scope import Scope
