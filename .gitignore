@@ -1,0 +1,10 @@
+# Environment
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Debug
+.env
+main.py
