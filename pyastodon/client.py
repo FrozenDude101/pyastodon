@@ -112,7 +112,7 @@ class Client():
             url = "".join([
                 f"https://{self.host}/oauth/authorize/",
                 f"?client_id={self.application.client_id}",
-                f"&scope={self.token.scope}",
+                f"&scope={self.token.scope}".replace(" ", "%20"),
                 "&redirect_uri=urn:ietf:wg:oauth:2.0:oob",
                 "&response_type=code",
             ])
