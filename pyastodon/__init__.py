@@ -1,0 +1,1 @@
+from pyastodon.client import Client

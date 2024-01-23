@@ -8,3 +8,6 @@ __pycache__/
 # Debug
 .env
 main.py
+
+# Secrets
+.secrets

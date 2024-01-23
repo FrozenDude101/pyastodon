@@ -1,11 +1,13 @@
 from __future__ import annotations
-from typing import Literal, Self, Union, Any
+from typing import Annotated, Literal, Self, Union, Any
 import typing
 
 import dataclasses
 import inspect
 import json
 
+
+DEPREACTED = "Deprecated"
 
 class Model():
 
@@ -55,13 +57,13 @@ class JSONModel(Model):
                 raise KeyError(f"Missing key {name} for {cls} to deserialize.")
             value = jsonData[name]
 
-            parsed = cls._parseValueToType(type_, value)
+            parsed = cls._parseValueToType(type_, value, name)
             kwargs[name] = parsed
 
         return cls(**kwargs)
     
     @classmethod
-    def _parseValueToType(cls, type_: type, value: Any) -> Any:
+    def _parseValueToType(cls, type_: type, value: Any, name: str) -> Any:
         origin = typing.get_origin(type_)
 
         if origin is None:
@@ -74,17 +76,22 @@ class JSONModel(Model):
         args = typing.get_args(type_)
         if origin is list:
             return list(map(lambda v: cls._parseValueToType(
-                args[0], v
+                args[0], v, name
             ), value))
         
-        if origin is Union:
-            for a in args:
-                try: return cls._parseValueToType(a, value)
-                except Exception: pass
+        if origin is Annotated:
+            if args[1] == DEPREACTED:
+                print(f"{name} is deprecated.")
+            return cls._parseValueToType(args[0], value, name)
 
         if origin is Literal:
             for a in args:
                 if value == a:
                     return a
+        
+        if origin is Union:
+            for a in args:
+                try: return cls._parseValueToType(a, value, name)
+                except Exception: pass
                 
         raise TypeError(f"Unsupported type '{type_}'.")
