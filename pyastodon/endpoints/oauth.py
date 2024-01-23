@@ -1,5 +1,6 @@
 from typing import Literal, Optional
 
+import pyastodon
 from pyastodon.endpoints.endpoint import post
 from pyastodon.models import Scope, Token
 
@@ -12,8 +13,10 @@ def token(
     code: Optional[str] = None,
     scope: Scope = Scope.READ
 ) -> Token:
+    client = pyastodon.Client.get()
+    url = client.host
     return Token.deserialize(post(
-        "mastodon.social", "/oauth/token", token = False,
+        url, "/oauth/token", token = False,
         grant_type = grant_type,
         code = code,
         client_id = client_id,

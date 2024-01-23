@@ -16,12 +16,15 @@ class Client():
         return Client._instance
 
     def __init__(self,
-        name,
+        host: str,
+        name: str,
         scopes = Scope.READ,
         website: Optional[str] = None,
         secretsFile=".secrets",
     ) -> None:
         Client._instance = self
+
+        self.host = host
 
         secrets = dotenv.dotenv_values(secretsFile)
         self._secretsFile = secretsFile

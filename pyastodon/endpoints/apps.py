@@ -1,5 +1,6 @@
 from typing import Optional
 
+import pyastodon
 from pyastodon.endpoints.endpoint import get, post
 from pyastodon.models import Application, Scope
 
@@ -10,8 +11,10 @@ def apps(
     scopes = Scope.READ,
     website: Optional[str] = None,
 ) -> Application:
+    client = pyastodon.Client.get()
+    url = client.host
     return Application.deserialize(
-        post("mastodon.social", "/api/v1/apps", token = False,
+        post(url, "/api/v1/apps", token = False,
             client_name = client_name,
             redirect_uris = redirect_uris,
             scopes = scopes,
@@ -20,6 +23,8 @@ def apps(
     )
 
 def verify_credentials() -> Application:
+    client = pyastodon.Client.get()
+    url = client.host
     return Application.deserialize(
-        get("mastodon.social", "/api/v1/apps/verify_credentials")
+        get(url, "/api/v1/apps/verify_credentials")
     )
