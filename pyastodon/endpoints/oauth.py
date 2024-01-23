@@ -9,7 +9,7 @@ def token(
     grant_type: Literal["authorization_code", "client_credentials"],
     client_id: str,
     client_secret: str,
-    redirect_uris: str,
+    redirect_uri: str,
     code: Optional[str] = None,
     scope: Scope = Scope.READ
 ) -> Token:
@@ -21,6 +21,6 @@ def token(
         code = code,
         client_id = client_id,
         client_secret = client_secret,
-        redirect_uris = redirect_uris,
+        redirect_uri = redirect_uri,
         scope = scope,
     ))
