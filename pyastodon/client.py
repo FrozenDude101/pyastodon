@@ -2,9 +2,11 @@ from __future__ import annotations
 from typing import Optional
 
 import dotenv
+import logging
 
 from pyastodon.endpoints import accounts, apps, oauth
 from pyastodon.models import Application, Scope, Token
+import pyastodon.logging as pLogging
 
 
 class Client():
@@ -19,11 +21,17 @@ class Client():
         name: str,
         scopes = Scope.READ,
         website: Optional[str] = None,
+        logger: Optional[str] = None,
+        logLevel: logging._Level = logging.INFO,
         secretsFile=".secrets",
     ) -> None:
         Client._instance = self
 
         self.host = host
+
+        if logger is None:
+            pLogging.setupLogging(logLevel)
+        self._logger = pLogging.getLogger("client")
 
         self._secretsFile = secretsFile
         clientId = dotenv.get_key(self._secretsFile, "CLIENT_ID")
