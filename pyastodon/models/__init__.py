@@ -8,3 +8,4 @@ from pyastodon.models.field import Field
 from pyastodon.models.account import Account
 
 from pyastodon.models.permission import Permission
+from pyastodon.models.role import Role

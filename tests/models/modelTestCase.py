@@ -52,13 +52,20 @@ class ModelTestCase(unittest.TestCase):
         self.assertEqual(e1.visible_in_picker, e2.visible_in_picker)
         self.assertEqual(e1.category, e2.category)
 
-    def assertPermissionEqual(self, p1: Permission, p2: Permission) -> None:
-        self.assertEqual(p1, p2)
-
     def assertFieldEqual(self, f1: Field, f2: Field) -> None:
         self.assertEqual(f1.name, f2.name)
         self.assertEqual(f1.value, f2.value)
         self.assertEqual(f1.verified_at, f2.verified_at)
+
+    def assertPermissionEqual(self, p1: Permission, p2: Permission) -> None:
+        self.assertEqual(p1, p2)
+
+    def assertRoleEqual(self, r1: Role, r2: Role) -> None:
+        self.assertEqual(r1.id, r2.id)
+        self.assertEqual(r1.name, r2.name)
+        self.assertEqual(r1.color, r2.color)
+        self.assertPermissionEqual(r1.permissions, r2.permissions)
+        self.assertEqual(r1.highlighted, r2.highlighted)
 
     def assertScopeEqual(self, s1: Scope, s2: Scope) -> None:
         self.assertEqual(s1, s2)
