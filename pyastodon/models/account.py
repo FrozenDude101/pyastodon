@@ -4,7 +4,7 @@ from typing import Optional
 from dataclasses import dataclass
 
 from pyastodon.models.model import JSONModel
-from pyastodon.models import CustomEmoji, Field
+from pyastodon.models import CustomEmoji, Field, Source, Role
 
 
 @dataclass
@@ -35,3 +35,8 @@ class Account(JSONModel):
     suspended: Optional[bool]     = None
     limited: Optional[bool]       = None
     last_status_at: Optional[str] = None
+
+@dataclass(kw_only=True)
+class CredentialAccount(Account):
+    source: Source
+    role: Role

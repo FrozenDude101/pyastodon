@@ -45,6 +45,11 @@ class ModelTestCase(unittest.TestCase):
         self.assertEqual(a1.client_secret, a2.client_secret)
         self.assertEqual(a1.vapid_key, a2.vapid_key)
 
+    def assertCredentialAccountEqual(self, ca1: CredentialAccount, ca2: CredentialAccount) -> None:
+        self.assertAccountEqual(ca1, ca2)
+        self.assertSourceEqual(ca1.source, ca2.source)
+        self.assertRoleEqual(ca1.role, ca2.role)
+
     def assertCustomEmojiEqual(self, e1: CustomEmoji, e2: CustomEmoji) -> None:
         self.assertEqual(e1.shortcode, e2.shortcode)
         self.assertEqual(e1.url, e2.url)
@@ -69,6 +74,17 @@ class ModelTestCase(unittest.TestCase):
 
     def assertScopeEqual(self, s1: Scope, s2: Scope) -> None:
         self.assertEqual(s1, s2)
+
+    def assertSourceEqual(self, s1: Source, s2: Source) -> None:
+        self.assertEqual(s1.note, s2.note)
+        self.assertEqual(s1.privacy, s2.privacy)
+        self.assertEqual(s1.sensitive, s2.sensitive)
+        self.assertEqual(s1.language, s2.language)
+        self.assertEqual(s1.follow_requests_count, s2.follow_requests_count)
+
+        self.assertEqual(len(s1.fields), len(s2.fields))
+        for (f1, f2) in zip(s1.fields, s1.fields):
+            self.assertFieldEqual(f1, f2)
 
     def assertTokenEqual(self, t1: Token, t2: Token) -> None:
         self.assertEqual(t1.access_token, t2.access_token)
