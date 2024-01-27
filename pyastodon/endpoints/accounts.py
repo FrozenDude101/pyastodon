@@ -1,11 +1,11 @@
 import pyastodon
 from pyastodon.endpoints.endpoint import get
-from pyastodon.models import Account
+from pyastodon.models import CredentialAccount
 
 
-def verify_credentials() -> Account:
+def verify_credentials() -> CredentialAccount:
     client = pyastodon.Client.get()
     url = client.host
-    return Account.deserialize(
+    return CredentialAccount.deserialize(
         get(url, "/api/v1/accounts/verify_credentials")
     )
