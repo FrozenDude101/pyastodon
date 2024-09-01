@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2aa73ab57465d2d7871c8fc5079ba16f59909591d989815591067948b196425e"
+            "sha256": "6267e22422d735a8803165947c9a4fb77658ff66ba32db1a87477a45db9207d3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -124,6 +124,10 @@
             "index": "pypi",
             "markers": "python_version >= '3.9'",
             "version": "==3.8.0"
+        },
+        "pyastodon": {
+            "editable": true,
+            "file": "."
         },
         "pyyaml": {
             "hashes": [
