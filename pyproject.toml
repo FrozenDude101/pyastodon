@@ -1,0 +1,18 @@
+[build-system]
+build-backend = 'setuptools.build_meta'
+requires = [
+    'setuptools',
+]
+
+[project]
+name = "pyastodon"
+description = "A Mastodon API wrapper written in Python."
+version = "0.1.0"
+authors = [
+    { name = "Matthew Hammond", email = "frozendude101@outlook.com" }
+]
+
+[tool.mutmut]
+paths_to_mutate = "pyastodon/"
+runner = "python -m unittest"
+tests_dir = "tests/"

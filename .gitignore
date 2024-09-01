@@ -1,0 +1,11 @@
+# Python
+__pycache__
+*.egg-info
+
+# Environment / User Settings
+.vscode
+.venv
+
+# Testing
+.mutmut-cache
+html/
