@@ -4,7 +4,12 @@ import json
 import typing, types
 from typing import Any, Optional, Self, Union
 
-from pyastodon.models.modelErrors import *
+from pyastodon.models.base.modelErrors import (
+    CantFindTypeException,
+    InvalidAttributeTypeException,
+    MissingAttributeException,
+    UnsupportedTypeException,
+)
 
 
 INVALID = object()

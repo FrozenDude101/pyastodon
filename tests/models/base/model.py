@@ -5,7 +5,7 @@ from typing import Annotated, Any, Dict, List, Optional, Tuple, Union
 from abc import abstractmethod
 
 
-from pyastodon.models import (
+from pyastodon.models.base import (
     Model,
     InvalidAttributeTypeException,
     MissingAttributeException,
