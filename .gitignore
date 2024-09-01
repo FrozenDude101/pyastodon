@@ -4,7 +4,6 @@ __pycache__
 
 # Environment / User Settings
 .vscode
-.venv
 
 # Testing
 .mutmut-cache
