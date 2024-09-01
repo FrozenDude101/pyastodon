@@ -17,10 +17,6 @@ class ModelTestCase(TestCase):
 
     TestClass: type[Model]
 
-    @abstractmethod
-    def setUp(self) -> None:
-        raise NotImplementedError()
-
     def assertAttributeEquals(self, json: str, expected: Any) -> None:
         result = self.TestClass.deserialize(json)
 
@@ -42,11 +38,10 @@ class ModelTestCase(TestCase):
         self.assertModelRaisesError(json, UnsupportedTypeException)
 
 class TestNone(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: None
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: None
 
     def testNull(self) -> None:
         json = "{\"attribute\": null}"
@@ -59,12 +54,12 @@ class TestNone(ModelTestCase):
     def testInvalid(self) -> None:
         json = "{\"attribute\": 1}"
         self.assertInvalidAttribute(json)
+
 class TestBool(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: bool
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: bool
 
     def testTrue(self) -> None:
         json = "{\"attribute\": true}"
@@ -81,12 +76,12 @@ class TestBool(ModelTestCase):
     def testOneInvalid(self) -> None:
         json = "{\"attribute\": 1}"
         self.assertInvalidAttribute(json)
+
 class TestInt(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: int
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: int
 
     def testValue(self) -> None:
         json = "{\"attribute\": 1}"
@@ -106,12 +101,12 @@ class TestInt(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestFloat(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: float
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: float
 
     def testValue(self) -> None:
         json = "{\"attribute\": 2.3}"
@@ -128,12 +123,12 @@ class TestFloat(ModelTestCase):
     def testBoolInvalid(self) -> None:
         json = "{\"attribute\": true}"
         self.assertInvalidAttribute(json)
+
 class TestString(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: str
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: str
 
     def testValue(self) -> None:
         json = "{\"attribute\": \"Hello, World!\"}"
@@ -146,12 +141,12 @@ class TestString(ModelTestCase):
     def testMissing(self) -> None:
         self.assertMissingAttribute()
 
+
 class TestGenericList(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: list
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: list
 
     def testItems(self) -> None:
         json = "{\"attribute\": [1, 2, 3]}"
@@ -171,18 +166,19 @@ class TestGenericList(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
-class TestDeprecatedGenericList(TestGenericList):   
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: List
-        self.TestClass = Test
+
+class TestDeprecatedGenericList(TestGenericList):
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: List
+
+
 class TestTypedList(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: list[int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: list[int]
 
     def testItems(self) -> None:
         json = "{\"attribute\": [1, 2, 3]}"
@@ -202,19 +198,18 @@ class TestTypedList(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestDeprecatedTypedList(TestTypedList):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: List[int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: List[int]
 
 class TestGenericTuple(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: tuple
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: tuple
 
     def testItems(self) -> None:
         json = "{\"attribute\": [1, \"Hello, World!\", 3]}"
@@ -230,18 +225,18 @@ class TestGenericTuple(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestDeprecatedGenericTuple(TestGenericTuple):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Tuple
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: Tuple
+
 class TestTypedTuple(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: tuple[int, str, int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: tuple[int, str, int]
 
     def testItems(self) -> None:
         json = "{\"attribute\": [1, \"Hello, World!\", 3]}"
@@ -265,19 +260,19 @@ class TestTypedTuple(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestDeprecatedTypedTuple(TestTypedTuple):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Tuple[int, str, int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: Tuple[int, str, int]
+
 
 class TestGenericDict(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: dict
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: dict
 
     def testItems(self) -> None:
         json = "{\"attribute\": {\"key1\": 1, \"key2\": \"Hello, World!\"}}"
@@ -293,18 +288,18 @@ class TestGenericDict(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestDeprecatedGenericDict(TestGenericDict):
-    def setUp(self) -> None: 
-        @dataclass
-        class Test(Model):
-            attribute: Dict
-        self.TestClass = Test   
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: Dict
+
 class TestTypedDict(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: dict[str, int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: dict[str, int]
 
     def testItems(self) -> None:
         json = "{\"attribute\": {\"key1\": 1, \"key2\": 2}}"
@@ -324,19 +319,19 @@ class TestTypedDict(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestDeprecatedTypedDict(TestTypedDict):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Dict[str, int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: Dict[str, int]
+
 
 class TestAnnotated(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Annotated[int, "Hello, World!"]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: Annotated[int, "Hello, World!"]
 
     def testValue(self) -> None:
         json = "{\"attribute\": 1}"
@@ -349,12 +344,12 @@ class TestAnnotated(ModelTestCase):
     def testMissing(self) -> None:
         self.assertMissingAttribute()
 
+
 class TestOptional(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Optional[int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: Optional[int]
 
     def testValue(self) -> None:
         json = "{\"attribute\": 1}"
@@ -371,32 +366,32 @@ class TestOptional(ModelTestCase):
     def testInvalid(self) -> None:
         json = "{\"attribute\": \"Hello, World!\"}"
         self.assertInvalidAttribute(json)      
+
 class TestOptionalAsUnion(TestOptional):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Union[int, None]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: Union[int, None]
+
 class TestOptionalAsUnionAsPipe(TestOptional):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: int | None
-        self.TestClass = Test
+    
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: int | None
+
 class TestMultipleOptional(TestOptional):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Optional[int]
-            attribute2: Optional[int]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: Optional[int]
+        attribute2: Optional[int]
+
 
 class TestUnion(ModelTestCase):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: Union[int, str]
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model):
+        attribute: Union[int, str]
 
     def testLeft(self) -> None:
         json = "{\"attribute\": 1}"
@@ -412,12 +407,12 @@ class TestUnion(ModelTestCase):
 
     def testMissing(self) -> None:
         self.assertMissingAttribute()
+
 class TestUnionAsPipe(TestUnion):
-    def setUp(self) -> None:
-        @dataclass
-        class Test(Model):
-            attribute: int | str
-        self.TestClass = Test
+
+    @dataclass
+    class TestClass(Model): # type: ignore
+        attribute: int | str
 
 # TODO
 # typing.Any
