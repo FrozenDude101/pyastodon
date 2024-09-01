@@ -10,6 +10,7 @@ from pyastodon.models.base.modelErrors import (
     MissingAttributeException,
     UnsupportedTypeException,
 )
+from pyastodon.models.base.deprecated import Deprecated
 
 
 INVALID = object()
@@ -31,9 +32,13 @@ class Model:
         for attribute in annotations:
             annotation = annotations[attribute]
             if attribute not in jsonDict:
-                if cls._castValue(annotation, None) is not INVALID:
+                origin = typing.get_origin(annotation)
+                if (cls._castValue(annotation, None) is not INVALID
+                    or origin is Deprecated
+                ):
                     jsonDict[attribute] = None
                     continue
+
                 raise MissingAttributeException(attribute)
             
             value = jsonDict[attribute]
@@ -139,5 +144,8 @@ class Model:
                 if cv is not INVALID:
                     return cv
             return INVALID
+        
+        elif origin is Deprecated:
+            return cls._castValue(args[0], value) 
         
         raise UnsupportedTypeException(annotation)
