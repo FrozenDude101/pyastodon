@@ -4,7 +4,7 @@ import json
 import typing, types
 from typing import Any, Optional, Self, Union
 
-from pyastodon.modelErrors import *
+from pyastodon.models.modelErrors import *
 
 
 INVALID = object()
