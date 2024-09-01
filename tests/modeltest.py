@@ -5,8 +5,12 @@ from typing import Annotated, Any, Dict, List, Optional, Tuple, Union
 from abc import abstractmethod
 
 
-from pyastodon import Model
-from pyastodon import InvalidAttributeTypeException, MissingAttributeException, UnsupportedTypeException
+from pyastodon.models.model import Model
+from pyastodon.models.modelErrors import (
+    InvalidAttributeTypeException,
+    MissingAttributeException,
+    UnsupportedTypeException
+)
 
 
 class ModelTestCase(TestCase):
