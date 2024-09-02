@@ -2,12 +2,12 @@ from typing import Optional
 
 from dataclasses import dataclass
 
-from pyastodon.models.base.model import Model
+from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.base.deprecated import Deprecated
 
 
 @dataclass(kw_only=True)
-class ApplicationModel(Model):
+class ApplicationModel(ObjectModel):
     name: str
     website: Optional[str] = None
     client_id: Optional[str] = None

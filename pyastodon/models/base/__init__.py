@@ -5,4 +5,5 @@ from .modelErrors import (
     UnsupportedTypeException,
 )
 from .deprecated import Deprecated
-from .model import Model
+from .objectModel import ObjectModel
+from .valueModel import ValueModel

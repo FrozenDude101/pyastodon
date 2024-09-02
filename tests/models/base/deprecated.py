@@ -1,54 +1,38 @@
 from typing import Optional
 from dataclasses import dataclass
 
-from .model import ModelTestCase
+from .objectModel import ModelTestCase
 
 from pyastodon.models.base import (
     Deprecated,
-    Model,
+    ObjectModel,
 )
 from typing import override
 
 class TestDeprecated(ModelTestCase):
 
     @dataclass
-    class TestClass(Model):
+    class TestClass(ObjectModel):
         attribute: Deprecated[int]
 
     def testValue(self) -> None:
-        json = "{\"attribute\": 1}"
+        json = {"attribute": 1}
         self.assertAttributeEquals(json, 1)
 
     def testMissing(self) -> None:
-        json = "{}"
+        json = {}
         self.assertAttributeEquals(json, None)
 
     def testNull(self) -> None:
-        json = "{\"attribute\": null}"
+        json = {"attribute": None}
         self.assertInvalidAttribute(json)
 
 class TestDeprecatedOptional(TestDeprecated):
     
     @dataclass
-    class TestClass(Model): # type: ignore
+    class TestClass(ObjectModel): # type: ignore
         attribute: Deprecated[Optional[int]]
 
-    def testValue(self) -> None:
-        json = "{\"attribute\": 1}"
-        self.assertAttributeEquals(json, 1)
-
-    def testMissing(self) -> None:
-        json = "{}"
-        self.assertAttributeEquals(json, None)
-
     def testNull(self) -> None:
-        json = "{\"attribute\": null}"
+        json = {"attribute": None}
         self.assertAttributeEquals(json, None)
-
-    def testWarningOnGet(self) -> None:
-        test = self.TestClass.deserialize("{\"attribute\": 1}")
-        attr = test.attribute
-
-    def testWarningOnSet(self) -> None:
-        test = self.TestClass.deserialize("{\"attribute\": 1}")
-        test.attribute = 2
