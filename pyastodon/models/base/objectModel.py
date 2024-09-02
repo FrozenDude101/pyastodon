@@ -18,7 +18,9 @@ INVALID = object()
 class ObjectModel(Model):
 
     @classmethod
-    def deserialize(cls, json: dict) -> Self:
+    def deserialize(cls, value: dict) -> Self:
+        objectDict = value
+
         try:
             annotations = typing.get_type_hints(cls)
         except NameError:
@@ -26,23 +28,23 @@ class ObjectModel(Model):
         
         for attribute in annotations:
             annotation = annotations[attribute]
-            if attribute not in json:
+            if attribute not in objectDict:
                 origin = typing.get_origin(annotation)
                 if (cls._castValue(annotation, None) is not INVALID
                     or origin is Deprecated
                 ):
-                    json[attribute] = None
+                    objectDict[attribute] = None
                     continue
 
                 raise MissingAttributeException(attribute)
             
-            value = json[attribute]
+            value = objectDict[attribute]
             castValue = cls._castValue(annotation, value)
             if castValue is INVALID:
                 raise InvalidAttributeTypeException(annotation, value)
-            json[attribute] = castValue
+            objectDict[attribute] = castValue
 
-        return cls(**json)
+        return cls(**objectDict)
 
     
     @classmethod

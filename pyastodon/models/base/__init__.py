@@ -6,4 +6,5 @@ from .modelErrors import (
 )
 from .deprecated import Deprecated
 from .objectModel import ObjectModel
-from .valueModel import ValueModel
+from .enumModel import EnumModel
+from .flagModel import FlagModel

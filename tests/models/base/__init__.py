@@ -1,2 +1,3 @@
 from .deprecated import *
-from .model import *
+from .objectModel import *
+from .enumModel import *

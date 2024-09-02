@@ -4,5 +4,5 @@ from typing import Any
 class Model:
 
     @classmethod
-    def deserialize(cls, json: Any) -> Any:
+    def deserialize(cls, value: Any) -> Any:
         raise NotImplementedError()
