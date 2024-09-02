@@ -2,7 +2,7 @@ from __future__ import annotations
 import json
 
 import typing, types
-from typing import Any, Optional, Self, Union
+from typing import Any, Literal, Optional, Self, Union
 
 from pyastodon.models.base.modelErrors import (
     CantFindTypeException,
@@ -137,6 +137,11 @@ class Model:
             if any([cv is INVALID for cv in castValue.values()]):
                 return INVALID
             return castValue
+            
+        elif origin is Literal:
+            if value not in args:
+                return INVALID
+            return value
         
         elif origin is Union or origin is types.UnionType:
             castValue = [cls._castValue(a, value) for a in args]

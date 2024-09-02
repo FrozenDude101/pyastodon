@@ -1,7 +1,7 @@
 from __future__ import annotations
 from unittest import TestCase
 from dataclasses import dataclass
-from typing import Annotated, Any, Dict, List, Optional, Tuple, Union
+from typing import Annotated, Any, Dict, List, Literal, Optional, Tuple, Union
 from abc import abstractmethod
 
 
@@ -345,6 +345,27 @@ class TestAnnotated(ModelTestCase):
         self.assertMissingAttribute()
 
 
+class TestLiteral(ModelTestCase):
+    @dataclass
+    class TestClass(Model):
+        attribute: Literal["Hello, World!", 1]
+
+    def testLeft(self) -> None:
+        json = "{\"attribute\": \"Hello, World!\"}"
+        self.assertAttributeEquals(json, "Hello, World!")
+
+    def testRight(self) -> None:
+        json = "{\"attribute\": 1}"
+        self.assertAttributeEquals(json, 1)
+
+    def testMissing(self) -> None:
+        self.assertMissingAttribute()
+
+    def testInvalid(self) -> None:
+        json = "{\"attribute\": 2}"
+        self.assertInvalidAttribute(json)
+
+
 class TestOptional(ModelTestCase):
 
     @dataclass
@@ -419,7 +440,6 @@ class TestUnionAsPipe(TestUnion):
 # typing.AnyStr?
 # typing.LiteralString?
 # typing.TypeAlias
-# typing.Literal
 # typing.Final
 
 # typing.Required
