@@ -6,9 +6,9 @@ from pyastodon.models.base.objectModel import ObjectModel
 
 
 @dataclass(kw_only=True)
-class CustomEmojiModel(ObjectModel):
-    shortcode: str
-    url: str
-    static_url: str
-    visible_in_picker: str
-    category: Optional[str]
+class AdminDimensionDataModel(ObjectModel):
+    key: str
+    human_key: str
+    value: str
+    unit: Optional[str]
+    human_value: Optional[str]

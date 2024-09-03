@@ -3,17 +3,17 @@ from typing import Optional
 from dataclasses import dataclass
 
 from pyastodon.models.base.objectModel import ObjectModel
-from pyastodon.models.account import Account
-from pyastodon.models.accountWarningAction import AccountWarningAction
-from pyastodon.models.appeal import Appeal
+from pyastodon.models.account import AccountModel
+from pyastodon.models.appeal import AppealModel
+from pyastodon.models.enums.accountWarningAction import AccountWarningAction
 
 
 @dataclass(kw_only=True)
-class AccountWarning(ObjectModel):
+class AccountWarningModel(ObjectModel):
     id: str
     action: AccountWarningAction
     text: str
     status_ids: list[str]
-    target_account: Account
-    appeal: Optional[Appeal]
+    target_account: AccountModel
+    appeal: Optional[AppealModel]
     created_at: str

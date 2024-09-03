@@ -3,13 +3,13 @@ from typing import Literal
 from dataclasses import dataclass
 
 from pyastodon.models.base.objectModel import ObjectModel
-from pyastodon.models.field import Field
+from pyastodon.models.field import FieldModel
 
 
 @dataclass(kw_only=True)
-class Source(ObjectModel):
+class SourceModel(ObjectModel):
     note: str
-    fields: list[Field]
+    fields: list[FieldModel]
     privacy: Literal["public", "unlisted", "private", "direct"]
     sensitive: bool
     language: str

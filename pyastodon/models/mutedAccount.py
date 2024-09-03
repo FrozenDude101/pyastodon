@@ -2,9 +2,9 @@ from typing import Optional
 
 from dataclasses import dataclass
 
-from pyastodon.models.account import Account
+from pyastodon.models.account import AccountModel
 
 
 @dataclass(kw_only=True)
-class MutedAccount(Account):
+class MutedAccountModel(AccountModel):
     mute_expires_at: Optional[str]

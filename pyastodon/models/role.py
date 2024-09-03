@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
 from pyastodon.models.base.objectModel import ObjectModel
-from pyastodon.models.permissions import Permissions
+from pyastodon.models.enums.permissions import Permissions
 
 
 @dataclass(kw_only=True)
-class Role(ObjectModel):
+class RoleModel(ObjectModel):
     id: str
     name: str
     color: str

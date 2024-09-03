@@ -5,12 +5,12 @@ from typing import Optional
 from dataclasses import dataclass
 
 from pyastodon.models.base.objectModel import ObjectModel
-from pyastodon.models.customEmoji import CustomEmoji
-from pyastodon.models.field import Field
+from pyastodon.models.customEmoji import CustomEmojiModel
+from pyastodon.models.field import FieldModel
 
 
 @dataclass(kw_only=True)
-class Account(ObjectModel):
+class AccountModel(ObjectModel):
     id: str
     username: str
     acct: str
@@ -22,13 +22,13 @@ class Account(ObjectModel):
     header: str
     header_static: str
     locked: bool
-    fields: list[Field]
-    emojis: list[CustomEmoji]
+    fields: list[FieldModel]
+    emojis: list[CustomEmojiModel]
     bot: bool
     group: bool
     discoverable: Optional[bool]
     noindex: Optional[bool]
-    moved: Optional[Account]
+    moved: Optional[AccountModel]
     suspended: Optional[bool]
     limited: Optional[bool]
     created_at: str

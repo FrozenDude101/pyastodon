@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
 from pyastodon.models.base.objectModel import ObjectModel
-from pyastodon.models.enums.appealState import AppealState
 
 
 @dataclass(kw_only=True)
-class AppealModel(ObjectModel):
+class RuleModel(ObjectModel):
+    id: str
     text: str
-    state: AppealState
+    hint: str

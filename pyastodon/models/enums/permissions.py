@@ -1,12 +1,9 @@
-from dataclasses import dataclass
-
-from enum import auto, Flag
+from enum import auto
 
 from pyastodon.models.base.flagModel import FlagModel
 
 
 class Permissions(FlagModel):
-    
     NONE                 = 0
     ADMINISTRATOR        = auto()
     DEVOPS               = auto()
