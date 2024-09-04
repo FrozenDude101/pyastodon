@@ -18,8 +18,15 @@ INVALID = object()
 class ObjectModel(Model):
 
     @classmethod
-    def deserialize(cls, value: dict) -> Self:
-        objectDict = value
+    def deserialize(cls, value: dict[str, Any]) -> Self:
+        objectDict = {
+            k.replace("@", "x")
+             .replace(".", "_")
+             .replace(":", "_")
+            : v for k, v in value.items()
+        }
+        # Ugly hack, InstanceThumbnailVersions have invalid characters. :(
+        # TODO: Revise into a better solution, per class replacements?
 
         try:
             annotations = typing.get_type_hints(cls)

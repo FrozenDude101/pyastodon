@@ -8,15 +8,16 @@ from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.account import AccountModel
 from pyastodon.models.application import ApplicationModel
 from pyastodon.models.filterResult import FilterResultModel
+from pyastodon.models.mediaAttachment import MediaAttachmentModel
 from pyastodon.models.poll import PollModel
 from pyastodon.models.previewCard import PreviewCardModel
-from pyastodon.models.statusMentionModel import StatusMentionModel
+from pyastodon.models.statusMention import StatusMentionModel
 from pyastodon.models.statusTag import StatusTagModel
 from pyastodon.models.customEmoji import CustomEmojiModel
 from pyastodon.models.enums.statusVisibility import StatusVisibility
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class StatusModel(ObjectModel):
     id: str
     uri: str
@@ -26,8 +27,8 @@ class StatusModel(ObjectModel):
     visibility: StatusVisibility
     sensitive: bool
     spoiler_text: str
-    media_attachments: str
-    application: Optional[ApplicationModel] # TODO: Double check.
+    media_attachments: list[MediaAttachmentModel]
+    application: Optional[ApplicationModel] # TODO: Verify
     mentions: list[StatusMentionModel]
     tags: list[StatusTagModel]
     emojis: list[CustomEmojiModel]

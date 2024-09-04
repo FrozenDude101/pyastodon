@@ -6,7 +6,7 @@ from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.adminMeasureDataModel import AdminMeasureDataModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminMeasureModel(ObjectModel):
     key: str
     unit: Optional[str]

@@ -8,7 +8,7 @@ from pyastodon.models.adminIp import AdminIpModel
 from pyastodon.models.role import RoleModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminAccountModel(ObjectModel):
     id: str
     username: str

@@ -6,7 +6,7 @@ from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.enums.adminIpBlockSeverity import AdminIpBlockSeverity
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminIpBlockModel(ObjectModel):
     id: str
     ip: str

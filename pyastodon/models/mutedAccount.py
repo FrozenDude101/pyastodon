@@ -5,6 +5,6 @@ from dataclasses import dataclass
 from pyastodon.models.account import AccountModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class MutedAccountModel(AccountModel):
     mute_expires_at: Optional[str]

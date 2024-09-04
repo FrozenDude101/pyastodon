@@ -9,7 +9,7 @@ from pyastodon.models.customEmoji import CustomEmojiModel
 from pyastodon.models.field import FieldModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AccountModel(ObjectModel):
     id: str
     username: str

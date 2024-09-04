@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pyastodon.models.base.objectModel import ObjectModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class RuleModel(ObjectModel):
     id: str
     text: str

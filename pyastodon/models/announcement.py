@@ -10,7 +10,7 @@ from pyastodon.models.statusTag import StatusTagModel
 from pyastodon.models.reaction import ReactionModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AnnouncementModel(ObjectModel):
     id: str
     content: str

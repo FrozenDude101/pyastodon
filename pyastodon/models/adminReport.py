@@ -9,7 +9,7 @@ from pyastodon.models.status import StatusModel
 from pyastodon.models.enums.adminReportCategory import AdminReportCategory
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminReportModel(ObjectModel):
     id: str
     action_taken: bool

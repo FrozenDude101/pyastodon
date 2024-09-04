@@ -5,7 +5,7 @@ from pyastodon.models.adminCohortData import AdminCohortDataModel
 from pyastodon.models.enums.adminCohortFrequency import AdminCohortFrequency
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminCohortModel(ObjectModel):
     period: str
     frequency: AdminCohortFrequency

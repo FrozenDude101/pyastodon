@@ -1,0 +1,17 @@
+from typing import Optional
+
+from dataclasses import dataclass
+
+from pyastodon.models.base.objectModel import ObjectModel
+from pyastodon.models.v1InstanceConfigurationAccounts import V1InstanceConfigurationAccountsModel
+from pyastodon.models.v1InstanceConfigurationStatuses import V1InstanceConfigurationStatusesModel
+from pyastodon.models.v1InstanceConfigurationMediaAttachments import V1InstanceConfigurationMediaAttachmentsModel
+from pyastodon.models.v1InstanceConfigurationPolls import V1InstanceConfigurationPollsModel
+
+
+@dataclass()
+class V1InstanceConfigurationModel(ObjectModel):
+    accounts: V1InstanceConfigurationAccountsModel
+    statuses: V1InstanceConfigurationStatusesModel
+    media_attachments: V1InstanceConfigurationMediaAttachmentsModel
+    polls: V1InstanceConfigurationPollsModel

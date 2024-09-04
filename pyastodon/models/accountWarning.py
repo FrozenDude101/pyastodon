@@ -8,7 +8,7 @@ from pyastodon.models.appeal import AppealModel
 from pyastodon.models.enums.accountWarningAction import AccountWarningAction
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AccountWarningModel(ObjectModel):
     id: str
     action: AccountWarningAction

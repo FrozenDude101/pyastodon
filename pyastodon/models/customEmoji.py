@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pyastodon.models.base.objectModel import ObjectModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class CustomEmojiModel(ObjectModel):
     shortcode: str
     url: str

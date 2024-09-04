@@ -6,7 +6,7 @@ from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.enums.adminDomainBlockSeverity import AdminDomainBlockSeverity
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminDomainBlock(ObjectModel):
     id: str
     domain: str

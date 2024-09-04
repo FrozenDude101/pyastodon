@@ -4,7 +4,7 @@ from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.adminDimensionData import AdminDimensionDataModel
 
 
-@dataclass(kw_only=True)
+@dataclass()
 class AdminDimensionModel(ObjectModel):
     key: str
     data: list[AdminDimensionDataModel]
