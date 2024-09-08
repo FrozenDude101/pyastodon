@@ -8,3 +8,6 @@ __pycache__
 # Testing
 .mutmut-cache
 html/
+
+# pyastodon
+.secrets

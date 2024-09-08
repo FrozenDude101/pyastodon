@@ -1,9 +1,10 @@
 from unittest import TestCase
-from enum import auto
+from enum import auto, Enum
 from typing import Any
 
 
 from pyastodon.models.base import (
+    StrFlagModel,
     FlagModel,
     EnumModel,
     InvalidAttributeTypeException,
@@ -30,40 +31,17 @@ class EnumModelTestCase(TestCase):
 class TestEnumModel(EnumModelTestCase):
 
     class TestClass(EnumModel):
-        attribute1 = auto()
-        attribute2 = auto()
+        ATTRIBUTE1 = auto()
+        ATTRIBUTE2 = auto()
 
     def testLeft(self) -> None:
         json = 1
-        self.assertParsesAs(json, self.TestClass.attribute1)
+        self.assertParsesAs(json, self.TestClass.ATTRIBUTE1)
 
     def testRight(self) -> None:
         json = 2
-        self.assertParsesAs(json, self.TestClass.attribute2)
+        self.assertParsesAs(json, self.TestClass.ATTRIBUTE2)
 
     def testInvalid(self) -> None:
         json = 3
-        self.assertInvalidAttribute(json)
-
-
-class TestFlagModel(EnumModelTestCase):
-
-    class TestClass(FlagModel):
-        attribute1 = auto()
-        attribute2 = auto()
-
-    def testLeft(self) -> None:
-        json = 1
-        self.assertParsesAs(json, self.TestClass.attribute1)
-
-    def testRight(self) -> None:
-        json = 2
-        self.assertParsesAs(json, self.TestClass.attribute2)
-
-    def testBoth(self) -> None:
-        json = 3
-        self.assertParsesAs(json, self.TestClass.attribute1 | self.TestClass.attribute2)
-
-    def testInvalid(self) -> None:
-        json = 4
         self.assertInvalidAttribute(json)

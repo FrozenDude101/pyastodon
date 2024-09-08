@@ -10,6 +10,7 @@ class FlagModel(EnumModel, Flag):
 
     @classmethod
     def deserialize(cls, value: Any) -> Self:
-        if value in cls:
+        try:
             return cls(int(value))
-        raise InvalidAttributeTypeException()
+        except:
+            raise InvalidAttributeTypeException()

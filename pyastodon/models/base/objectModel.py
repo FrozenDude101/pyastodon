@@ -12,7 +12,6 @@ from pyastodon.models.base.modelErrors import (
 from pyastodon.models.base.deprecated import Deprecated
 from pyastodon.models.base.model import Model
 
-
 INVALID = object()
 
 class ObjectModel(Model):
@@ -22,11 +21,8 @@ class ObjectModel(Model):
         objectDict = {
             k.replace("@", "x")
              .replace(".", "_")
-             .replace(":", "_")
             : v for k, v in value.items()
         }
-        # Ugly hack, InstanceThumbnailVersions have invalid characters. :(
-        # TODO: Revise into a better solution, per class replacements?
 
         try:
             annotations = typing.get_type_hints(cls)
@@ -100,10 +96,13 @@ class ObjectModel(Model):
                     return value
                 return INVALID
             
-            if issubclass(annotation, Model):
+            if issubclass(annotation, ObjectModel):
                 if isinstance(value, dict):
                     return annotation.deserialize(value)
                 return INVALID
+            
+            if issubclass(annotation, Model):
+                return annotation.deserialize(value)
         
         elif origin is list:
             if not isinstance(value, list):

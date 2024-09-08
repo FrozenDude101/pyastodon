@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Optional
 
 from dataclasses import dataclass
 
@@ -13,5 +13,9 @@ class SourceModel(ObjectModel):
     fields: list[FieldModel]
     privacy: SourcePrivacy
     sensitive: bool
-    language: str
-    follow_requests_count: str
+    language: Optional[str]
+    follow_requests_count: int
+    # Unknown
+    hide_collections: Optional[bool]
+    discoverable: Optional[bool]
+    indexable: Optional[bool]

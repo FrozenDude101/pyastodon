@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pyastodon.models.base.objectModel import ObjectModel
 from pyastodon.models.customEmoji import CustomEmojiModel
 from pyastodon.models.field import FieldModel
+from pyastodon.models.role import RoleModel
 
 
 @dataclass()
@@ -15,6 +16,7 @@ class AccountModel(ObjectModel):
     username: str
     acct: str
     url: str
+    uri: str
     display_name: str
     note: str
     avatar: str
@@ -36,3 +38,4 @@ class AccountModel(ObjectModel):
     statuses_count: int
     followers_count: int
     following_count: int
+    roles: list[RoleModel]

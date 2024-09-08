@@ -4,7 +4,7 @@ from pyastodon.models.base.flagModel import FlagModel
 
 
 class Permissions(FlagModel):
-    NONE                 = 0
+    NONE = 0
     ADMINISTRATOR        = auto()
     DEVOPS               = auto()
     VIEW_AUDIT_LOG       = auto()

@@ -8,8 +8,8 @@ from pyastodon.models.base.objectModel import ObjectModel
 
 @dataclass()
 class ApplicationModel(ObjectModel):
+    id: str
     name: str
     website: Optional[str]
-    client_id: Optional[str]
-    client_secret: Optional[str]
+    redirect_uri: Optional[str]
     vapid_key: Deprecated[str]
