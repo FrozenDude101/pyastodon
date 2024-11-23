@@ -1,11 +1,9 @@
 from unittest import TestCase
-from enum import auto, Enum
+from enum import auto
 from typing import Any
 
 
 from pyastodon.models.base import (
-    StrFlagModel,
-    FlagModel,
     EnumModel,
     InvalidAttributeTypeException,
 )
